@@ -1,0 +1,7 @@
+{
+    "interArrivalTime":"sec",
+    "frameLength":"bytes",
+    "frequency": "Hz",
+    "spreadingFactor": "",
+    "bandwidth": "kHz"
+}

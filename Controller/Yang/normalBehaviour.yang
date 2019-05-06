@@ -1,0 +1,85 @@
+// module name
+module normalBehaviour {
+
+    yang-version "1";
+    namespace "https://www.ncsu.edu/";
+
+    prefix "normalBehaviour";
+
+
+	// This grouping defines the statistics of a feature - its mean and standard deviation
+    grouping featureStats
+	{
+        leaf name
+		{
+            type string;
+        }
+		leaf mean
+		{
+	     	 type decimal64
+			 {
+				fraction-digits 7;
+			 }
+		}
+		leaf standardDeviation
+		{
+	     	 type decimal64
+			 {
+				fraction-digits 7;
+			 }
+		}
+    }
+
+    // This grouping defines the coordinates of single cluster centroid
+	grouping centroid
+	{
+		list coordinate{
+			 key "name";
+			 leaf name
+			 {
+				type string;
+			 }
+			 leaf value
+			 {
+				 type decimal64
+			 	 {
+					fraction-digits 7;
+			 	 }	
+			 }
+		}
+	}
+	
+    // Container of features
+    container features {
+        list feature {
+            // identify each feature by using the name as key
+            key "name";
+
+            // each individual will have the elements defined in the grouping
+            uses featureStats;
+        }
+    }
+
+    // Container of normal cluster centroids
+    container normalClusterDescription
+    {
+    	list  normalClusters
+    	{
+            // identify each feature by using the name as key
+            key "featureCombination";
+            leaf featureCombination
+            {
+            	type string;
+            }
+            list centroids
+            {
+            	key "name";
+            	leaf name
+            	{
+            		type string;
+            	}
+            	uses centroid;
+            }             
+        }	
+    }
+}
